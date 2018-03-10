@@ -6,10 +6,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
 </head>
 <body>
 <div class="container">
-    <div class="row">
+    <div class="row" style="padding-top: 20px; text-align: center;">
+        <h2>Most Common Words on Wikipedia</h2>
+        <p>A visualization of using a Task/Queue system</p>
+    </div>
+    <div class="row" style="padding-top: 50px;">
         <div class="col-xs-12" style="text-align: center;">
             <button class="btn btn-info">BEGIN</button>
         </div>
@@ -17,6 +23,8 @@
     <div class="row" style="margin-top: 50px;">
         <div class="col-xs-3" style="text-align: center; height: 300px; border: 1px solid black;">
             SEND MESSAGE
+
+            <i class="far fa-envelope"></i>
         </div>
         <div class="col-xs-6" style="text-align: center; height: 300px; border: 1px solid black;">
             QUEUE "Message Broker"

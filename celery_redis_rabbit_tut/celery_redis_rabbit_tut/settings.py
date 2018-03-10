@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'celery_redis_rabbit_tut',
+    'wikipedia'
 ]
 
 MIDDLEWARE = [
