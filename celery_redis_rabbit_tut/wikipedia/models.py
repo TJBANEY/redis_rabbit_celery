@@ -20,3 +20,7 @@ class WikipediaPage(models.Model):
 
     def __str__(self):
         return self.subject
+
+class Word(models.Model):
+    name = models.CharField(max_length=500)
+    occurrence = models.IntegerField(default=0)
