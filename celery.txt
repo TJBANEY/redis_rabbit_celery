@@ -1,0 +1,60 @@
+If you are a junior developer it can be unclear why moving work outside the HTTP
+request-response cycle is important. In short, you want your WSGI server to respond
+to incoming requests as quickly as possible because each request ties up a worker
+process until the response is finished. Moving work off those workers by spinning
+up asynchronous jobs as tasks in a queue is a straightforward way to improve WSGI
+server response times.
+
+Task Queue Use CASES
+https://www.quora.com/What-are-some-use-cases-for-message-queues-in-real-life-and-what-are-some-architectures-that-achieve-the-same-goal-without-using-queues-explicitly
+
+1) Picture resize: your user uploads pictures to your website. They need to be resized,
+or maybe you need to create thumbnails of those to show a preview somewhere. The
+user does not "care" about this, he has finished uploading his stuff, he should not
+have to wait for you to process them before having a response. So you queue that task
+to somewhere else. The result of the resizing task does not impact the response
+(meaning that on the contrary, validating that a pdf doc does not contain profanity
+before accepting it, should not be done in a queue because you need that info to
+generate your response).
+
+2) Video encoding: if you're building Youtube, you probably are not going to ask
+your user to wait until his video has been converted from avi to flash / x264 / webM
+before telling him his file was uploaded correctly.
+
+3) Search engine indexing: say you're building a CRM, your user modifies the info
+of a client company. That the info is correctly saved in DB is enough to send a
+reply to the user. Integrating that new info in your search engine index can
+happen minutes later without it being an issue.
+
+4) Pushing a tweet: if your user has set that his account on your app
+(let's say a blog engine) has to be integrated with his twitter account, if his
+blog post has been saved and published, it's enough for you to tell him
+"everything went fine", and then put the tweet to be sent in a message queue so
+an other server will do that. Here it's no big deal if you run your blogs as
+single instances, but if this is part of the response generation, then what
+happens when twitter is down? Can you still save your post? If yes, then the tweet
+won't be sent... If it's in a message queue, even with twitter down
+(or you exceeding your twitter api limit), the message will stay there until it
+can actually be consumed. Also if your blog platform becomes the next tumblr,
+you'll have so many tweets to send that it's going to become a big deal and
+you'll need to completely have it separated from the base app.
+
+So any time something is not part of the most basic transaction the user is trying
+to do, and the result does not impact the response you're sending to the user,
+there is a potential use case for a message queue!
+
+5) Decoupling heavy-weight processing from a live user request. Essentially a way
+to say "do this work as soon as possible" when you don't need to block for the
+answer. One motivation for this may be to allow message processors to run at full
+tilt (100% cpu utilization or whatever) without impact to the latency sensitive
+message producer. Note that this only actually makes sense if the cost of sending
+the message to the queue is lower than the cost of processing it (which is often
+not true in these days of plentiful cpu).
+
+6) As a buffer to help batch up messages for some kind of bulk processing--say a JDBC
+batch insert into a database or adding to an HDFS file. In each of these cases
+adding one message at a time would be very inefficient, so you need a temporary
+holding place.
+
+7) Dividing up work among multiple worker nodes that feed off the queue as a way
+to balance work over multiple machines to get a poor man's distributed processing.
