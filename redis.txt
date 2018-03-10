@@ -1,0 +1,131 @@
+# What is REDIS ?
+# - Open Source, In Memory, NoSQL dataase
+
+
+For understanding messages and queues a little better.
+https://medium.com/@weyoss/building-a-simple-message-queue-using-redis-server-and-node-js-964eda240a2a
+
+# Use Cases
+# Might already have a db, SQL Server, MySQL, MongoDB
+# Some parts of your application might need access to parts of that data faster than your database can respond
+# Might put some of that data in memory as a cache
+
+# Lua Script is its only programming language but it compiles into memory
+# So you're not leaving redis to do the work, its all done in memory on the server
+
+# Amazon ElastiCache is based on Redis
+
+# Fast for READS and WRITES because its all done In Memory
+# BUT with disc persistence in case of a crash
+
+###### USES CASES ######
+# 1) LEADERBOARD - have a bunch of users all competing and based on criteria, you
+# could quickly and easily filter that data, and show top players. can be Sorted
+# quickly, and displayed in real time
+#
+# 2) User Voting - Can use a sorted set, and let users vote. Kept in memory in real time
+#
+# 6) Real Time Analytics
+#
+# 3) Can expire items that you know you dont want to display at a certain time
+#
+# 4) Queues   <- !!!!!
+# Can make a request using a function saying to remove item from this queue to another in a transaction
+# without losing data
+#
+# 5) Caching
+
+# Single Threaded - only doing one action at a time.
+# Better for performance because you don't have to worry about records getting locked, just doing one queued action after another
+
+# Replication - Master/Slave = can have multiple copies on different servers
+# So if one server goes down, you can immediately switch to the other server
+# Master doing all the interaction with your applications
+# Slaves would be saving to disc
+
+# 160 Commands
+
+# Redis Data Type
+# Strings
+# Lists
+# Sets
+# Sorted Sets
+# Hashes - Most like objects, similar to JSON objects
+# Bitmaps
+# Hyperlogs
+# Geospatial indexes
+
+# Advantages of Redis
+# No Schemas and Column Names
+# Very Fast
+# Rich Data Type Support
+# Caching and Disc Persistence - Kind of like memcached and MongoDB combined
+
+# Redis and Security
+
+# Designed to be accessed by trusted clients
+# Do not allow external access / Internet exposure
+# Simple Authentication can be setup
+# Can be restricted to certain interfaces
+# Data encryption not supported
+
+# Instructions
+# 1) brew install Redis
+# 2) in the terminal > 'redis-server' = this starts this redis server
+
+# commands
+# 127.0.0.1:6379> ping => pings server
+# 127.0.0.1:6379> SET foo 100 => sets variable
+# 127.0.0.1:6379> GET foo => get that variable
+# 127.0.0.1:6379> INCR foo => increment that variable
+# 127.0.0.1:6379> DECR foo => decrement that variable
+# 127.0.0.1:6379> EXISTS foo => check existence of variable, returns a 1, or 0
+# 127.0.0.1:6379> DEL bar => delete variable
+# 127.0.0.1:6379> GET bar => if variable doesnt exist, it will return 'nil'
+# (nil)
+# 127.0.0.1:6379> FLUSHALL => Flush entire redis server
+# 127.0.0.1:6379> SET server:name someserver => set key value pairs
+# 127.0.0.1:6379> GET server:name
+# "someserver"
+# 127.0.0.1:6379> SET greeting "Hello World"
+# 127.0.0.1:6379> EXPIRE greeting 50 => Expires, and removes the variable after entered seconds
+# (integer) 1
+# 127.0.0.1:6379> TTL greeting => checks to see how much life it has left
+# (integer) 47
+# 127.0.0.1:6379> SETEX greeting 30 "hello world" => set the value, and expiration at the same time
+# 127.0.0.1:6379> PERSIST greeting => saves the expired variable from expiring
+# 127.0.0.1:6379> MSET greeting "one" greeting2 "two" => sets multiple variable at the same time
+# 127.0.0.1:6379> APPEND greeting " three" => appends value to an existing value
+# 127.0.0.1:6379> RENAME greeting newgreeting => renames variable
+
+# commands for Lists
+# LPUSH => pushes an item to the beginning of List
+# RPUSH => pushed an item to the end of the list
+# LRANGE 0 - 4 => Gets all items in list with index in range
+# LPOP
+# RPOP => removes item from beginning or end of the list
+
+# commands for Sets
+
+# commands for Sorted Sets
+
+# commands for Hash SET
+# 127.0.0.1:6379> HSET user:tim name "Timothy"
+# 127.0.0.1:6379> HSET user:tim email "timbaney1989@gmail.com"
+# 127.0.0.1:6379> HGET user:tim name
+# "Timothy"
+# 127.0.0.1:6379> HGETALL user:tim
+# 1) "name"
+# 2) "Timothy"
+# 3) "email"
+# 4) "timbaney1989@gmail.com"
+# 127.0.0.1:6379> HDEL user:tim name
+
+# REDIST Persistence
+RDB = performs point in time snapshots of your dataset at specified intervals
+AOS = performs snapshot for every write
+
+# 127.0.0.1:6379> SAVE => backs up data and saves it to disc
+
+
+# YOU CAN USE IT AS SIMPLE CACHING SYSTEM OR FULL FLEDGED DATABASE LIKE MONGODB - INCREDIBLY FAST !
