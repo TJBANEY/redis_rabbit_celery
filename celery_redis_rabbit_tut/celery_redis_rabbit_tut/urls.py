@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import home
+from .views import home, get_word_results
 
 urlpatterns = [
+    path('get_word_results/', get_word_results),
     path('', home),
     path('admin/', admin.site.urls),
 ]

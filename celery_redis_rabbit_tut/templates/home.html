@@ -6,7 +6,54 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    <script>
+        var pulse = function () {
+            setTimeout(function () {
+                $.ajax({
+                    method: 'GET',
+                    url: '/get_word_results/'
+                }).then(function success(response) {
+                    $('#one .name').html(response.one.name);
+                    $('#one .count').html(response.one.count);
+
+                    $('#two .name').html(response.two.name);
+                    $('#two .count').html(response.two.count);
+
+                    $('#three .name').html(response.three.name);
+                    $('#three .count').html(response.three.count);
+
+                    $('#four .name').html(response.four.name);
+                    $('#four .count').html(response.four.count);
+
+                    $('#five .name').html(response.five.name);
+                    $('#five .count').html(response.five.count);
+
+                    $('#six .name').html(response.six.name);
+                    $('#six .count').html(response.six.count);
+
+                    $('#seven .name').html(response.seven.name);
+                    $('#seven .count').html(response.seven.count);
+
+                    $('#eight .name').html(response.eight.name);
+                    $('#eight .count').html(response.eight.count);
+
+                    $('#nine .name').html(response.nine.name);
+                    $('#nine .count').html(response.nine.count);
+
+                    $('#ten .name').html(response.ten.name);
+                    $('#ten .count').html(response.ten.count);
+                }, function error() {
+                    console.log('FAILURE')
+                });
+
+                pulse()
+            }, 3000);
+        };
+    </script>
+
 
 </head>
 <body>
@@ -17,7 +64,7 @@
     </div>
     <div class="row" style="padding-top: 50px;">
         <div class="col-xs-12" style="text-align: center;">
-            <button class="btn btn-info">BEGIN</button>
+            <button class="btn btn-info" onclick="pulse()">BEGIN</button>
         </div>
     </div>
     <div class="row" style="margin-top: 50px;">
@@ -35,7 +82,49 @@
     </div>
     <div class="row" style="margin-top: 50px;">
         <div class="col-xs-12" style="border: 1px solid black; text-align: center; height: 200px;">
-            Most Common Words
+            <h3 style="margin-bottom: 20px;">Most Common Words</h3>
+            <div class="row">
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="one">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="two">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="three">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="four">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="five">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="six">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="seven">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="eight">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="nine">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+                <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="ten">
+                    <p style="margin-bottom: 2px" class="name"></p>
+                    <p style="margin: 0;" class="count"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

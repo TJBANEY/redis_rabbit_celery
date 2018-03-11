@@ -24,3 +24,11 @@ class WikipediaPage(models.Model):
 class Word(models.Model):
     name = models.CharField(max_length=500)
     occurrence = models.IntegerField(default=0)
+
+    def to_json(self):
+        json_obj = {
+            'name': self.name,
+            'count': self.occurrence
+        }
+
+        return json_obj

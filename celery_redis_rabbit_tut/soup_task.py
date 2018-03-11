@@ -21,13 +21,13 @@ forbidden_words = [
 
 def hit_page():
     count = 0
-    url = "https://en.wikipedia.org/wiki/Rome"
 
     while count < 20:
-        print('Scanning page for {}'.format(url))
-        url = get_fifty_most_common_words(url)
-        url = "https://en.wikipedia.org/wiki/{}".format(url)
-        time.sleep(5)
+        print('Scanning page')
+
+        get_fifty_most_common_words("https://en.wikipedia.org/wiki/Special:Random")
+
+        time.sleep(3)
         count += 1
 
 
@@ -39,9 +39,6 @@ def get_fifty_most_common_words(url):
     # Get 1000 most common words from the page.
     words_dict = get_sorted_list_of_words(text)[:1000]
 
-    # Get random word to trigger new search
-    random_word = random.choice(words_dict[10:20])
-
     # Start saving words to database
     for item in words_dict:
         word = item[0].lower()
@@ -52,9 +49,6 @@ def get_fifty_most_common_words(url):
 
         word_obj.occurrence += count
         word_obj.save()
-
-    return random_word[0]
-
 
 def get_sorted_list_of_words(text):
     word_count = {}
