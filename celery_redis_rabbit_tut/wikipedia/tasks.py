@@ -90,7 +90,7 @@ def create_wiki_page():
     # Start saving words to database
     for item in words_dict:
         word = item[0].lower()
-        for ch in ['(', '{', '}', ')', ',', '[', ']', '"', '\'']:
+        for ch in ['(', '{', '}', ')', ',', '[', ']', '"', '\'', '=']:
             word = word.replace(ch, '')
 
         count = int(item[1])
