@@ -17,7 +17,7 @@ forbidden_words = [
     'an', 'this', 'that', 'then', 'there', 'but', 'was', 'with',
     'which', ':', ';', 'also', 'were', 'has', 'its', '-', '_', 'or',
     'it', '=', '"', '\'', 'such', '–', '(', ')', ').', 'be', 'wikipedia', 'page',
-    'edit', 'retrieved', 'articles', '[1]', 'in'
+    'edit', 'retrieved', 'articles', '[1]', 'in', 'his', 'her', 'he', 'she'
 ]
 
 def hit_page():
@@ -48,6 +48,8 @@ def get_fifty_most_common_words(url):
     # Start saving words to database
     for item in words_dict:
         word = item[0].lower()
+        for ch in ['(', '{', '}', ')', ',', '[', ']', '"', '\'']:
+            word = word.replace(ch, '')
 
         count = int(item[1])
 
