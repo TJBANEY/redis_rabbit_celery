@@ -39,8 +39,8 @@
       <file leaf-file-name="celery.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/celery_redis_rabbit_tut/celery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+            <state relative-caret-position="440">
+              <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -51,8 +51,8 @@
       <file leaf-file-name="tasks.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wikipedia/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="26" column="17" lean-forward="true" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+            <state relative-caret-position="364">
+              <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -60,14 +60,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/celery_redis_rabbit_tut/__init__.py">
+      <file leaf-file-name="redis.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/redis.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="37" lean-forward="false" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="472">
+              <caret line="96" column="37" lean-forward="false" selection-start-line="96" selection-start-column="37" selection-end-line="96" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="celery.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/celery.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="183">
+              <caret line="28" column="18" lean-forward="false" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,8 +83,8 @@
       <file leaf-file-name="soup_task.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/soup_task.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="31" column="79" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="79" />
+            <state relative-caret-position="798">
+              <caret line="62" column="23" lean-forward="true" selection-start-line="51" selection-start-column="4" selection-end-line="62" selection-end-column="23" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -154,10 +162,14 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>eta</find>
+    </findStrings>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/wikipedia/views.py" />
         <option value="$PROJECT_DIR$/celery_redis_rabbit_tut/urls.py" />
         <option value="$PROJECT_DIR$/celery_redis_rabbit_tut/views.py" />
@@ -167,6 +179,7 @@
         <option value="$PROJECT_DIR$/baney_celery.py" />
         <option value="$PROJECT_DIR$/celery_redis_rabbit_tut/settings.py" />
         <option value="$PROJECT_DIR$/celery_redis_rabbit_tut/__init__.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/soup_task.py" />
         <option value="$PROJECT_DIR$/wikipedia/tasks.py" />
         <option value="$PROJECT_DIR$/celery_redis_rabbit_tut/celery.py" />
@@ -204,16 +217,6 @@
             <path>
               <item name="celery_redis_rabbit_tut" type="b2602c69:ProjectViewProjectNode" />
               <item name="celery_redis_rabbit_tut" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="celery_redis_rabbit_tut" type="b2602c69:ProjectViewProjectNode" />
-              <item name="celery_redis_rabbit_tut" type="462c0819:PsiDirectoryNode" />
-              <item name="celery_redis_rabbit_tut" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="celery_redis_rabbit_tut" type="b2602c69:ProjectViewProjectNode" />
-              <item name="celery_redis_rabbit_tut" type="462c0819:PsiDirectoryNode" />
-              <item name="wikipedia" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -314,7 +317,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/soup_task.py</url>
-          <line>67</line>
+          <line>57</line>
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="1" />
@@ -438,14 +441,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wikipedia/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -532,16 +527,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/celery_redis_rabbit_tut/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="37" lean-forward="false" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/celery_redis_rabbit_tut/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
@@ -560,20 +545,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/celery_redis_rabbit_tut/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="37" lean-forward="false" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="1" lean-forward="false" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/soup_task.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="31" column="79" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="79" />
+        <state relative-caret-position="798">
+          <caret line="62" column="23" lean-forward="true" selection-start-line="51" selection-start-column="4" selection-end-line="62" selection-end-column="23" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/redis.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="96" column="37" lean-forward="false" selection-start-line="96" selection-start-column="37" selection-end-line="96" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/celery.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="28" column="18" lean-forward="false" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/celery_redis_rabbit_tut/celery.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+        <state relative-caret-position="440">
+          <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -582,8 +601,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wikipedia/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="26" column="17" lean-forward="true" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+        <state relative-caret-position="364">
+          <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>

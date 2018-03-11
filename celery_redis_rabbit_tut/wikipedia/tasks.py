@@ -5,7 +5,10 @@ from django.conf import settings
 
 import requests
 from bs4 import BeautifulSoup
+from bs4.element import Comment
 from slugify import slugify
+
+import time
 
 import django
 django.setup()
@@ -19,7 +22,48 @@ app = Celery('tasks')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-from wikipedia.models import WikipediaPage
+from wikipedia.models import WikipediaPage, Word
+
+forbidden_words = [
+    '', 'the', 'and', 'as', 'for', 'a', 'by', '&', 'of', 'on', 'at',
+    ',', '.', 'in', 'to', 'are', '', 'is', '^', '[', ']', 'from',
+    'an', 'this', 'that', 'then', 'there', 'but', 'was', 'with',
+    'which', ':', ';', 'also', 'were', 'has', 'its', '-', '_', 'or',
+    'it', '=', '"', '\'', 'such', '–', '(', ')', ').', 'be', 'wikipedia', 'page',
+    'edit', 'retrieved', 'articles', '[1]', 'in', 'his', 'her', 'he', 'she'
+]
+
+def tag_visible(element):
+    if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
+        return False
+    if isinstance(element, Comment):
+        return False
+    return True
+
+def purge_rare_words():
+    rare_words = Word.objects.filter(occurrence__lte=10)
+    rare_words.delete()
+
+def get_sorted_list_of_words(text):
+    word_count = {}
+    for index, item in enumerate(text.split(' ')):
+
+        # Ensure word is not a letter of the alphabet, or a common word like a preposition, or conjunction
+        if len(list(item)) > 1 and item.lower() not in forbidden_words:
+
+            # Ensure word is not a number
+            try:
+                int(item)
+            except Exception:
+                if not word_count.get(item):
+                    word_count[item] = 1
+                else:
+                    word_count[item] += 1
+
+    sorted_dict = [(item, word_count[item]) for item in sorted(word_count, key=word_count.get, reverse=True)]
+
+    # Only return top 1000 most common words
+    return sorted_dict
 
 @app.task()
 def create_wiki_page():
@@ -31,10 +75,38 @@ def create_wiki_page():
 
     WikipediaPage.objects.create(subject=subject, url=url)
 
+    content = soup.find("div", {"id": "content"})
+
+    texts = content.findAll(text=True)
+
+    visible_texts = filter(tag_visible, texts)
+    text = u" ".join(t.strip() for t in visible_texts)
+
+    # Get 1000 most common words from the page.
+    words_dict = get_sorted_list_of_words(text)[:1000]
+
+    purge_rare_words()
+
+    # Start saving words to database
+    for item in words_dict:
+        word = item[0].lower()
+        for ch in ['(', '{', '}', ')', ',', '[', ']', '"', '\'']:
+            word = word.replace(ch, '')
+
+        count = int(item[1])
+
+        word_obj, _ = Word.objects.get_or_create(name=word)
+
+        word_obj.occurrence += count
+        word_obj.save()
+
     return 'Success'
 
 @app.task()
 def grab_idle_pages():
     pass
 
-create_wiki_page.delay()
+create_wiki_page.apply_async(countdown=60)
+
+
+

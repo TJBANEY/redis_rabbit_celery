@@ -24,16 +24,6 @@ forbidden_words = [
     'edit', 'retrieved', 'articles', '[1]', 'in', 'his', 'her', 'he', 'she'
 ]
 
-def create_wiki_page():
-    response = requests.get("https://en.wikipedia.org/wiki/Special:Random")
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    subject = soup.find("h1", {"id": "firstHeading"}).text
-    url = f"https://en.wikipedia.org/wiki/{slugify(subject)}".replace('-', '_')
-
-    print(subject)
-    print(url)
-
 def hit_page():
     count = 0
 
@@ -111,4 +101,4 @@ def text_from_html(body):
     visible_texts = filter(tag_visible, texts)
     return u" ".join(t.strip() for t in visible_texts)
 
-create_wiki_page()
+hit_page()

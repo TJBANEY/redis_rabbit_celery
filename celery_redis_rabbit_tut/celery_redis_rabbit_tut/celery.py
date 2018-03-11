@@ -37,4 +37,4 @@ def create_wiki_page():
 def grab_idle_pages():
     pass
 
-create_wiki_page.delay()
+# create_wiki_page.delay()
