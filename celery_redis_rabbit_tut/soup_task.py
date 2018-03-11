@@ -22,12 +22,12 @@ forbidden_words = [
 def hit_page():
     count = 0
 
-    while count < 20:
+    while count < 100:
         print('Scanning page')
 
         get_fifty_most_common_words("https://en.wikipedia.org/wiki/Special:Random")
 
-        time.sleep(3)
+        time.sleep(2)
         count += 1
 
 
