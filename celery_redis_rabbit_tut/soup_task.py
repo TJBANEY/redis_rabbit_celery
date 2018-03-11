@@ -16,20 +16,24 @@ forbidden_words = [
     ',', '.', 'in', 'to', 'are', '', 'is', '^', '[', ']', 'from',
     'an', 'this', 'that', 'then', 'there', 'but', 'was', 'with',
     'which', ':', ';', 'also', 'were', 'has', 'its', '-', '_', 'or',
-    'it', '=', '"', '\'', 'such', '–', '(', ')', ').', 'be'
+    'it', '=', '"', '\'', 'such', '–', '(', ')', ').', 'be', 'wikipedia', 'page',
+    'edit', 'retrieved', 'articles', '[1]', 'in'
 ]
 
 def hit_page():
     count = 0
 
-    while count < 100:
+    while count < 400:
         print('Scanning page')
 
         get_fifty_most_common_words("https://en.wikipedia.org/wiki/Special:Random")
 
-        time.sleep(2)
+        time.sleep(1)
         count += 1
 
+def purge_rare_words():
+    rare_words = Word.objects.filter(occurrence__lte=10)
+    rare_words.delete()
 
 def get_fifty_most_common_words(url):
     body = requests.get(url)
@@ -38,6 +42,8 @@ def get_fifty_most_common_words(url):
 
     # Get 1000 most common words from the page.
     words_dict = get_sorted_list_of_words(text)[:1000]
+
+    purge_rare_words()
 
     # Start saving words to database
     for item in words_dict:
@@ -82,7 +88,10 @@ def tag_visible(element):
 
 def text_from_html(body):
     soup = BeautifulSoup(body, 'html.parser')
-    texts = soup.findAll(text=True)
+
+    content = soup.find("div", { "id" : "content" })
+
+    texts = content.findAll(text=True)
     visible_texts = filter(tag_visible, texts)
     return u" ".join(t.strip() for t in visible_texts)
 

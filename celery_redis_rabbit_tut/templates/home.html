@@ -16,41 +16,53 @@
                     method: 'GET',
                     url: '/get_word_results/'
                 }).then(function success(response) {
+                    console.log(response.one.percent);
+
                     $('#one .name').html(response.one.name);
                     $('#one .count').html(response.one.count);
+                    $('.meter.one').css({'height': response.one.percent + '%'});
 
                     $('#two .name').html(response.two.name);
                     $('#two .count').html(response.two.count);
+                    $('.meter.two').css({'height': response.two.percent + '%'});
 
                     $('#three .name').html(response.three.name);
                     $('#three .count').html(response.three.count);
+                    $('.meter.three').css({'height': response.three.percent + '%'});
 
                     $('#four .name').html(response.four.name);
                     $('#four .count').html(response.four.count);
+                    $('.meter.four').css({'height': response.four.percent + '%'});
 
                     $('#five .name').html(response.five.name);
                     $('#five .count').html(response.five.count);
+                    $('.meter.five').css({'height': response.five.percent + '%'});
 
                     $('#six .name').html(response.six.name);
                     $('#six .count').html(response.six.count);
+                    $('.meter.six').css({'height': response.six.percent + '%'});
 
                     $('#seven .name').html(response.seven.name);
                     $('#seven .count').html(response.seven.count);
+                    $('.meter.seven').css({'height': response.seven.percent + '%'});
 
                     $('#eight .name').html(response.eight.name);
                     $('#eight .count').html(response.eight.count);
+                    $('.meter.eight').css({'height': response.eight.percent + '%'});
 
                     $('#nine .name').html(response.nine.name);
                     $('#nine .count').html(response.nine.count);
+                    $('.meter.nine').css({'height': response.nine.percent + '%'});
 
                     $('#ten .name').html(response.ten.name);
                     $('#ten .count').html(response.ten.count);
+                    $('.meter.ten').css({'height': response.ten.percent + '%'});
                 }, function error() {
                     console.log('FAILURE')
                 });
 
                 pulse()
-            }, 5000);
+            }, 2000);
         };
     </script>
 
@@ -81,12 +93,15 @@
         </div>
     </div>
     <div class="row" style="margin-top: 50px;">
-        <div class="col-xs-12" style="border: 1px solid black; text-align: center; height: 200px;">
+        <div class="col-xs-12" style="border: 1px solid black; text-align: center; min-height: 200px;">
             <h3 style="margin-bottom: 20px;">Most Common Words</h3>
             <div class="row">
                 <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="one">
                     <p style="margin-bottom: 2px" class="name"></p>
                     <p style="margin: 0;" class="count"></p>
+                    <div class="meter-bar">
+
+                    </div>
                 </div>
                 <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="two">
                     <p style="margin-bottom: 2px" class="name"></p>
@@ -123,6 +138,99 @@
                 <div style="width: 10%; height: 100px; border: 1px solid black; float: left;" id="ten">
                     <p style="margin-bottom: 2px" class="name"></p>
                     <p style="margin: 0;" class="count"></p>
+                </div>
+            </div>
+
+            <style>
+                .occurrence-meter {
+                    height: 300px;
+                }
+
+                .occurrence-meter .meter-container {
+                    position: relative;
+                    height: 100%;
+                    width: 10%;
+                    padding: 0 5px;
+                }
+
+                .occurrence-meter .meter {
+                    position: absolute;
+                    bottom: 0;
+                    width: 90%;
+                }
+
+                .meter.one {
+                    background-color: #ff385f;
+                    height: 50%;
+                }
+
+                .meter.two {
+                    background-color: #ff9f35;
+                }
+
+                .meter.three {
+                    background-color: #ffdd56;
+                }
+
+                .meter.four {
+                    background-color: #bbff56;
+                }
+
+                .meter.five {
+                    background-color: #20d160;
+                }
+
+                .meter.six {
+                    background-color: #20d1cc;
+                }
+
+                .meter.seven {
+                    background-color: #219cef;
+                }
+
+                .meter.eight {
+                    background-color: #1712c1;
+                }
+
+                .meter.nine {
+                    background-color: #080a75;
+                }
+
+                .meter.ten {
+                    background-color: #000000;
+                }
+            </style>
+
+            <div class="row occurrence-meter">
+                <div class="meter-container">
+                    <div class="meter one"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter two"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter three"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter four"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter five"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter six"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter seven"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter eight"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter nine"></div>
+                </div>
+                <div class="meter-container">
+                    <div class="meter ten"></div>
                 </div>
             </div>
         </div>

@@ -31,4 +31,11 @@ class Word(models.Model):
             'count': self.occurrence
         }
 
+        words = Word.objects.all().order_by('-occurrence')
+
+        total = 0
+        for indx in range(0, 10):
+            total += words[indx].occurrence
+            json_obj['percent'] = "{0:.1f}".format(((self.occurrence / total) * 100) * 3)
+
         return json_obj
