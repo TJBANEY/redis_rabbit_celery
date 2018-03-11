@@ -1,7 +1,7 @@
-from tasks import app
+from baney_celery import app
 import datetime
 from datetime import datetime, timedelta
-from celery.utils.log import get_logger
+from baney_celery.utils.log import get_logger
 logger = get_logger(__name__)
 
 @app.task

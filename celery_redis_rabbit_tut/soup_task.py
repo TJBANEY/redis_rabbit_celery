@@ -3,11 +3,15 @@ import time
 
 import django
 django.setup()
+import os
+from slugify import slugify
 
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 
 import requests
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celery_redis_rabbit_tut.settings')
 
 from wikipedia.models import Word
 
@@ -19,6 +23,16 @@ forbidden_words = [
     'it', '=', '"', '\'', 'such', '–', '(', ')', ').', 'be', 'wikipedia', 'page',
     'edit', 'retrieved', 'articles', '[1]', 'in', 'his', 'her', 'he', 'she'
 ]
+
+def create_wiki_page():
+    response = requests.get("https://en.wikipedia.org/wiki/Special:Random")
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    subject = soup.find("h1", {"id": "firstHeading"}).text
+    url = f"https://en.wikipedia.org/wiki/{slugify(subject)}".replace('-', '_')
+
+    print(subject)
+    print(url)
 
 def hit_page():
     count = 0
@@ -97,4 +111,4 @@ def text_from_html(body):
     visible_texts = filter(tag_visible, texts)
     return u" ".join(t.strip() for t in visible_texts)
 
-hit_page()
+create_wiki_page()

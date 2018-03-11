@@ -1,5 +1,5 @@
 import redis
-from celery import Celery
+from baney_celery import Celery
 
 redis_server = redis.Redis("localhost")
 redis_server.set("name", "Timothy")

@@ -1,33 +1,40 @@
-# from celery_redis_rabbit_tut.celery import app
+from __future__ import absolute_import
+import os
 from celery import Celery
-import time
-import bs4
+from django.conf import settings
+
+import requests
+from bs4 import BeautifulSoup
+from slugify import slugify
+
+import django
+django.setup()
+
+# set the default Django settings module for the 'celery' program.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celery_redis_rabbit_tut.settings')
+app = Celery('tasks')
+
+# Using a string here means the worker will not have to
+# pickle the object when using Windows.
+app.config_from_object('django.conf:settings')
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
 from wikipedia.models import WikipediaPage
 
-app = Celery('tasks', broker='redis://localhost')
+@app.task()
+def create_wiki_page():
+    response = requests.get("https://en.wikipedia.org/wiki/Special:Random")
+    soup = BeautifulSoup(response.text, 'html.parser')
 
-app.conf.beat_schedule = {
-    'publication-heartbeat': {
-        'task': 'inspect_page',
-        'schedule': 60.0,
-    }
-}
+    subject = soup.find("h1", {"id": "firstHeading"}).text
+    url = f"https://en.wikipedia.org/wiki/{slugify(subject)}".replace('-', '_')
+
+    WikipediaPage.objects.create(subject=subject, url=url)
+
+    return 'Success'
 
 @app.task()
 def grab_idle_pages():
-    # Grabs Idle Pages, and throw them in Queue to be scanned
-    pages = WikipediaPage.objects.filter(scanned='I')
+    pass
 
-    print('This Works')
-
-def scan_page(idle_pages):
-    for page in idle_pages:
-        pass
-
-
-count = 1
-while count < 10:
-    grab_idle_pages.delay()
-    time.sleep(2)
-    count += 1
+create_wiki_page.delay()
