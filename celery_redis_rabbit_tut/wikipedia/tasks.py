@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import absolute_import
 import os
 from celery import Celery
@@ -7,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 from slugify import slugify
+import redis
 
 import time
 
@@ -22,6 +25,13 @@ app = Celery('tasks')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
+redis_server = redis.Redis("localhost")
+
+@app.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+    # Calls test('hello') every 10 seconds.
+    sender.add_periodic_task(1.0, create_wiki_page.s(), name='add every 10')
+
 from wikipedia.models import WikipediaPage, Word
 
 forbidden_words = [
@@ -30,7 +40,7 @@ forbidden_words = [
     'an', 'this', 'that', 'then', 'there', 'but', 'was', 'with',
     'which', ':', ';', 'also', 'were', 'has', 'its', '-', '_', 'or',
     'it', '=', '"', '\'', 'such', '–', '(', ')', ').', 'be', 'wikipedia', 'page',
-    'edit', 'retrieved', 'articles', '[1]', 'in', 'his', 'her', 'he', 'she'
+    'edit', 'retrieved', 'articles', '[1]', 'in', 'his', 'her', 'he', 'she', 'name'
 ]
 
 def tag_visible(element):
@@ -40,9 +50,9 @@ def tag_visible(element):
         return False
     return True
 
-def purge_rare_words():
-    rare_words = Word.objects.filter(occurrence__lte=10)
-    rare_words.delete()
+# def purge_rare_words():
+#     rare_words = Word.objects.filter(occurrence__lte=10)
+#     rare_words.delete()
 
 def get_sorted_list_of_words(text):
     word_count = {}
@@ -85,9 +95,9 @@ def create_wiki_page():
     # Get 1000 most common words from the page.
     words_dict = get_sorted_list_of_words(text)[:1000]
 
-    purge_rare_words()
+    # purge_rare_words()
 
-    # Start saving words to database
+    # Start saving words to Redis
     for item in words_dict:
         word = item[0].lower()
         for ch in ['(', '{', '}', ')', ',', '[', ']', '"', '\'', '=']:
@@ -95,10 +105,7 @@ def create_wiki_page():
 
         count = int(item[1])
 
-        word_obj, _ = Word.objects.get_or_create(name=word)
-
-        word_obj.occurrence += count
-        word_obj.save()
+        redis_server.zincrby(name='myzset', value=word, amount=count)
 
     return 'Success'
 
@@ -106,7 +113,7 @@ def create_wiki_page():
 def grab_idle_pages():
     pass
 
-create_wiki_page.apply_async(countdown=60)
+# create_wiki_page.apply_async(countdown=60)
 
 
 

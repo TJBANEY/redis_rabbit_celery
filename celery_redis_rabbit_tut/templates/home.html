@@ -13,7 +13,7 @@
         var pulse = function () {
             console.log('STARTING');
 
-{#            setTimeout(function () {#}
+            setTimeout(function () {
                 $.ajax({
                     method: 'GET',
                     url: '/get_word_results/'
@@ -63,8 +63,8 @@
                     console.log('FAILURE')
                 });
 
-{#                pulse()#}
-{#            }, 2000);#}
+                pulse()
+            }, 500);
         };
     </script>
 
