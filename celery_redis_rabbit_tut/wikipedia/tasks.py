@@ -36,8 +36,8 @@ from wikipedia.models import WikipediaPage, Word
 
 forbidden_words = [
     '', 'the', 'and', 'as', 'for', 'a', 'by', '&', 'of', 'on', 'at',
-    ',', '.', 'in', 'to', 'are', '', 'is', '^', '[', ']', 'from',
-    'an', 'this', 'that', 'then', 'there', 'but', 'was', 'with',
+    ',', '.', 'in', 'to', 'are', '', 'is', '^', '[', ']', 'from', 'references'
+    'an', 'this', 'that', 'then', 'there', 'but', 'was', 'with', 'de'
     'which', ':', ';', 'also', 'were', 'has', 'its', '-', '_', 'or',
     'it', '=', '"', '\'', 'such', '–', '(', ')', ').', 'be', 'wikipedia', 'page',
     'edit', 'retrieved', 'articles', '[1]', 'in', 'his', 'her', 'he', 'she', 'name'

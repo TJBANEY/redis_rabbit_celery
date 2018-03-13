@@ -39,7 +39,7 @@ def get_word_results(request):
         'one': {
             'name': words_redis[0][0].decode("utf-8"),
             'count': words_redis[0][1],
-            'percent': "{0:.1f}".format(((words_redis[0][1] / total) * 100) * 3)
+            'percent': "{0:.1f}".format(((words_redis[0][1] / total) * 100) * 2)
         },
         'two': {
             'name': words_redis[1][0].decode("utf-8"),
