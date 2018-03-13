@@ -1,4 +1,5 @@
 import redis
+import os
 
 import django
 django.setup()
@@ -6,6 +7,8 @@ django.setup()
 from wikipedia.models import Word
 
 redis_server = redis.Redis("localhost")
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celery_redis_rabbit_tut.settings')
 
 for word in Word.objects.all().order_by('-occurrence'):
 
