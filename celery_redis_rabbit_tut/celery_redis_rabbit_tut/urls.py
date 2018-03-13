@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import home, get_word_results
+from .views import home, get_word_results, number_of_tasks_in_queue
 
 urlpatterns = [
+    path('number_of_tasks_in_queue/', number_of_tasks_in_queue),
     path('get_word_results/', get_word_results),
     path('', home),
     path('admin/', admin.site.urls),

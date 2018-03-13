@@ -63,8 +63,30 @@
                     console.log('FAILURE')
                 });
 
+                $.ajax({
+                    method: 'GET',
+                    url: '/number_of_tasks_in_queue/'
+                }).then(function (response){
+                    var keys_length = Number(response.keys) / 20;
+
+                    var queue_box = $('#msg-broker');
+
+                    console.log(keys_length);
+
+                    queue_box.html(' ');
+
+                    for (var i = 0; i < keys_length; i++){
+                        console.log('womp womp');
+
+                        queue_box.append('<i class="far fa-2x fa-envelope" style="float: left; margin: 3px;"></i>')
+                    }
+
+                }, function error(response){
+                    console.log('Keys Error');
+                });
+
                 pulse()
-            }, 500);
+            }, 5000);
         };
     </script>
 
@@ -89,6 +111,8 @@
         </div>
         <div class="col-xs-6" style="text-align: center; height: 300px; border: 1px solid black;">
             QUEUE "Message Broker"
+            <div id="msg-broker" style="width: 100%; height: 80%; margin-top: 10px;">
+            </div>
         </div>
         <div class="col-xs-3" style="text-align: center; height: 300px; border: 1px solid black;">
             WORKER

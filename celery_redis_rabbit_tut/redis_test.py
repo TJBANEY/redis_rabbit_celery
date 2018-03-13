@@ -10,19 +10,6 @@ redis_server = redis.Redis("localhost")
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celery_redis_rabbit_tut.settings')
 
-for word in Word.objects.all().order_by('-occurrence'):
+keys = redis_server.keys(pattern='celery-task-meta*')
 
-    # Since 'name' is a reserved parameter name
-    if word.name == 'name':
-        word.name = '.name'
-
-    kw = {
-        word.name: word.occurrence,
-    }
-
-    try:
-        redis_server.zadd(name='myzset', **kw)
-    except Exception:
-        print(word.name)
-
-print(redis_server.zrange(name='myzset', start=0, end=-1, withscores=True))
+print(len(keys))

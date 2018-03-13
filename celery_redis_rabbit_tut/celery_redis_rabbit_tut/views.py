@@ -14,6 +14,15 @@ def home(request):
 
     return render(request, template, {})
 
+def number_of_tasks_in_queue(request):
+    keys = redis_server.keys(pattern='celery-task-meta*')
+
+    json_obj = {
+        'keys': len(keys)
+    }
+
+    return HttpResponse(json.dumps(json_obj), content_type='application/json')
+
 def get_word_results(request):
     import datetime
     # Using Redis to get the top ten most common words into JSON for javascript to consume on the frontend
