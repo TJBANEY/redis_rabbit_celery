@@ -30,7 +30,7 @@ redis_server = redis.Redis("localhost")
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     # Calls test('hello') every 10 seconds.
-    sender.add_periodic_task(0.5, create_wiki_page.s(), name='add every 10')
+    sender.add_periodic_task(0.05, create_wiki_page.s(), name='add every 10')
 
 from wikipedia.models import WikipediaPage, Word
 
