@@ -30,14 +30,14 @@ redis_server = redis.Redis("localhost")
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     # Calls test('hello') every 10 seconds.
-    sender.add_periodic_task(1.0, create_wiki_page.s(), name='add every 10')
+    sender.add_periodic_task(0.5, create_wiki_page.s(), name='add every 10')
 
 from wikipedia.models import WikipediaPage, Word
 
 forbidden_words = [
-    '', 'the', 'and', 'as', 'for', 'a', 'by', '&', 'of', 'on', 'at',
-    ',', '.', 'in', 'to', 'are', '', 'is', '^', '[', ']', 'from', 'references'
-    'an', 'this', 'that', 'then', 'there', 'but', 'was', 'with', 'de'
+    '', 'the', 'and', 'as', 'for', 'a', 'by', '&', 'of', 'on', 'at', 'all', 'may',
+    ',', '.', 'in', 'to', 'are', '', 'is', '^', '[', ']', 'from', 'references',
+    'an', 'this', 'that', 'then', 'there', 'but', 'was', 'with', 'de', 'an',
     'which', ':', ';', 'also', 'were', 'has', 'its', '-', '_', 'or',
     'it', '=', '"', '\'', 'such', '–', '(', ')', ').', 'be', 'wikipedia', 'page',
     'edit', 'retrieved', 'articles', '[1]', 'in', 'his', 'her', 'he', 'she', 'name'
@@ -54,16 +54,22 @@ def tag_visible(element):
 #     rare_words = Word.objects.filter(occurrence__lte=10)
 #     rare_words.delete()
 
+def cust_strip(word):
+    for ch in ['(', '{', '}', ')', ',', '[', ']', '"', '\'', '=', ':', ';']:
+        word = word.replace(ch, '')
+
+    return word
+
 def get_sorted_list_of_words(text):
     word_count = {}
     for index, item in enumerate(text.split(' ')):
 
         # Ensure word is not a letter of the alphabet, or a common word like a preposition, or conjunction
-        if len(list(item)) > 1 and item.lower() not in forbidden_words:
+        if len(list(item)) > 1 and cust_strip(item.lower()) not in forbidden_words:
 
             # Ensure word is not a number
             try:
-                int(item)
+                int(cust_strip(item))
             except Exception:
                 if not word_count.get(item):
                     word_count[item] = 1
@@ -100,7 +106,7 @@ def create_wiki_page():
     # Start saving words to Redis
     for item in words_dict:
         word = item[0].lower()
-        for ch in ['(', '{', '}', ')', ',', '[', ']', '"', '\'', '=']:
+        for ch in ['(', '{', '}', ')', ',', '[', ']', '"', '\'', '=', ':', ';']:
             word = word.replace(ch, '')
 
         count = int(item[1])
